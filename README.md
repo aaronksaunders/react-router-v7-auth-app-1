@@ -2,6 +2,7 @@
 
 This project demonstrates a basic authentication system using React Router v7, showcasing its new features and file-based routing system.
 
+- VIDEO - https://youtu.be/LSMAKdYG2lA
 - 📖 [React Router docs](https://reactrouter.com/dev)
 
 ## Features
