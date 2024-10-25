@@ -18,6 +18,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export async function action({ request }: Route.ActionArgs) {
+  let response: Response;
   try {
     const formData = await request.formData();
     const email = formData.get("email")?.toString();
@@ -29,7 +30,7 @@ export async function action({ request }: Route.ActionArgs) {
     }
 
     // Create a session
-    const response = await createUserSession({
+    response = await createUserSession({
       request,
       userId: "aaron@mail.com",
       remember: true,
@@ -38,8 +39,6 @@ export async function action({ request }: Route.ActionArgs) {
     if (!response) {
       throw new Error("An error occurred while creating the session");
     }
-
-    throw response;
   } catch (error) {
     if (error instanceof Error) {
       return { error: error.message };
@@ -47,6 +46,8 @@ export async function action({ request }: Route.ActionArgs) {
 
     return { error: "An unknown error occurred" };
   }
+
+  throw response;
 }
 
 export default function Login({ actionData }: Route.ComponentProps) {
