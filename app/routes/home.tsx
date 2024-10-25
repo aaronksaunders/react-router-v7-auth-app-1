@@ -1,4 +1,4 @@
-import { Form, json, Link, type MetaFunction } from "react-router";
+import { Form, Link, type MetaFunction } from "react-router";
 import { getUserId } from "~/services/session.server";
 import { redirect } from "react-router";
 import type * as Route from "./+types.home";
@@ -14,9 +14,9 @@ export async function loader({ request }: Route.LoaderArgs) {
   // Check if the user is already logged in
   const userId = await getUserId(request);
   if (!userId) {
-    return redirect("/login");
+    throw redirect("/login");
   } else {
-    return json({ userId });
+    return { userId };
   }
 }
 

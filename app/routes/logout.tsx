@@ -1,5 +1,4 @@
-import { json, Link, type MetaFunction } from "react-router";
-import { getUserId } from "~/services/session.server";
+import { type MetaFunction } from "react-router";
 import { redirect } from "react-router";
 import type * as Route from "./+types.logout";
 import { logout } from "../services/session.server";
