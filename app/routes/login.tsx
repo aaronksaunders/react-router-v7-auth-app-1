@@ -1,5 +1,4 @@
 import { Form, redirect, type MetaFunction } from "react-router";
-import { json } from "react-router";
 import type * as Route from "./+types.login";
 import { createUserSession, getUserId } from "~/services/session.server";
 
@@ -40,12 +39,13 @@ export async function action({ request }: Route.ActionArgs) {
       throw new Error("An error occurred while creating the session");
     }
 
-    return response;
+    throw response;
   } catch (error) {
     if (error instanceof Error) {
-      return json({ error: error.message });
+      return { error: error.message };
     }
-    return json({ error: "An unknown error occurred" });
+
+    return { error: "An unknown error occurred" };
   }
 }
 
@@ -70,9 +70,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
           </div>
           {actionData?.error ? (
             <div className="flex flex-row">
-              <p className="text-red-600 mt-4 ">
-                {actionData?.error}
-              </p>
+              <p className="text-red-600 mt-4 ">{actionData?.error}</p>
             </div>
           ) : null}
         </div>
